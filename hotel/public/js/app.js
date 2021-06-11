@@ -20527,7 +20527,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
   "class": "px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded",
   type: "submit"
-}, "$3.00")])])])])])], -1
+}, "Search")])])])])])], -1
 /* HOISTED */
 );
 
