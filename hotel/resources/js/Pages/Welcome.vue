@@ -18,6 +18,9 @@
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <p class="text-5xl md:text-7xl  text-yellow-500">Hotel</p>
+            <inertia-link :href="route('search.rooms')" class="ml-4 text-sm text-gray-700 underline">
+                znajdz pokoj
+            </inertia-link>
         </div>
     </div>
 </template>

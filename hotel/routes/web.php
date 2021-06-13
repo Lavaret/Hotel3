@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/room/search', [RoomController::class, 'search'])->name('search.rooms');
+
+Route::post('/room/result', [RoomController::class, 'index'])->name('result.rooms');
 
 require __DIR__.'/auth.php';
