@@ -41,6 +41,7 @@
                                 </svg>
                                 Balkon
                             </p>
+                            <a :href="route('make.reservation')" class="bg-black p-3 ml-auto mr-0 rounded text-white">Zarezerwuj</a>
                         </div>
                     </div>
                 </div>

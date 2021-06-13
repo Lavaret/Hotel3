@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/room/search', [RoomController::class, 'search'])->name('search.rooms');
+Route::get('/room/search', [RoomController::class, 'wyszukajPokoj'])->name('search.rooms');
 
-Route::post('/room/result', [RoomController::class, 'index'])->name('result.rooms');
+Route::post('/room/result', [RoomController::class, 'pokazRezultat'])->name('result.rooms');
+
+Route::post('/make/reservation', [ReservationController::class, 'zrobRezerwację'])->name('make.reservation');
 
 require __DIR__.'/auth.php';

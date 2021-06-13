@@ -8,12 +8,12 @@ use Inertia\Inertia;
 
 class RoomController extends Controller
 {
-    public function search() {
+    public function wyszukajPokoj() {
         return Inertia::render('Search');
     }
 
 
-    public function index(Request $request) {
+    public function pokazRezultat(Request $request) {
         $validated = $request->validate([
             'check_in_date' => 'required|date',
             'check_out_date' => 'required|date',
