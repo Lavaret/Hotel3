@@ -17,10 +17,10 @@
         </div>
 
         <div class="py-12">
-            <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-5xl w-screen mx-auto sm:px-6 lg:px-8">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="mx-3 my-2 rounded">
-                        <div v-for="room in rooms" class="mb-1 shadow border p-3">
+                        <div v-for="room in rooms" class="mb-1 w-full shadow border p-3">
                             <p class="text-2xl">Pokój {{room.beds}} osobowy</p>
                             <p class="text-xl text-gray-700">Cena: {{room.price}} zł</p>
                             <p v-if="room.has_bathroom">
@@ -41,7 +41,15 @@
                                 </svg>
                                 Balkon
                             </p>
-                            <a :href="route('make.reservation')" class="bg-black p-3 ml-auto mr-0 rounded text-white">Zarezerwuj</a>
+                            <form method="post" :action="route('make.reservation')">
+                                <input type="hidden" name="_token" :value="csrf_token">
+                                <input type="hidden" name="check_in" :value="dates['check_in']">
+                                <input type="hidden" name="check_out" :value="dates['check_out']">
+                                <input type="hidden" name="id" :value="room.id">
+                                <div class="mt-4">
+                                    <button class="bg-black p-3 ml-auto mr-0 block w-28 rounded text-white" type="submit">Zarezerwuj</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -54,20 +62,23 @@
 
 
 <script>
+import Input from "@/Components/Input";
 export default {
+    components: {Input},
     props: {
         canLogin: Boolean,
         canRegister: Boolean,
         laravelVersion: String,
         phpVersion: String,
         errors: Array,
-        rooms: Array
+        rooms: Array,
+        dates: Array
     },
     data() {
         return {
             csrf_token: document.querySelector('meta[name="csrf-token"]').content,
         }
-    },
+    }
 }
 </script>
 

@@ -31,10 +31,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/room/search', [RoomController::class, 'wyszukajPokoj'])->name('search.rooms');
+Route::post('/room/search', [RoomController::class, 'wyszukajPokoj'])->name('search.rooms');
 
 Route::post('/room/result', [RoomController::class, 'pokazRezultat'])->name('result.rooms');
 
-Route::post('/make/reservation', [ReservationController::class, 'zrobRezerwację'])->name('make.reservation');
+Route::post('/make/reservation', [ReservationController::class, 'zrobRezerwacje'])->name('make.reservation');
 
 require __DIR__.'/auth.php';

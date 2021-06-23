@@ -41,6 +41,9 @@ class RoomController extends Controller
                 return $query->where('has_wifi', 1);
             })->get();
 
-        return Inertia::render('Rooms', compact('rooms'));
+        $dates['check_in'] = $validated['check_in_date'];
+        $dates['check_out'] = $validated['check_out_date'];
+
+        return Inertia::render('Rooms', compact('rooms', 'dates'));
     }
 }
