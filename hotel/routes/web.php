@@ -31,9 +31,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::post('/room/search', [RoomController::class, 'wyszukajPokoj'])->name('search.rooms');
+Route::get('/room/search', [RoomController::class, 'wyszukajPokoj'])->name('search.rooms');
 
-Route::post('/room/result', [RoomController::class, 'pokazRezultat'])->name('result.rooms');
+Route::get('/room/result', [RoomController::class, 'pokazRezultat'])->name('result.rooms');
 
 Route::post('/make/reservation', [ReservationController::class, 'zrobRezerwacje'])->name('make.reservation');
 

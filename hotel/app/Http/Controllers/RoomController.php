@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Client;
 use Inertia\Inertia;
 
 class RoomController extends Controller
@@ -44,6 +45,8 @@ class RoomController extends Controller
         $dates['check_in'] = $validated['check_in_date'];
         $dates['check_out'] = $validated['check_out_date'];
 
-        return Inertia::render('Rooms', compact('rooms', 'dates'));
+        $clients = Client::all();
+
+        return Inertia::render('Rooms', compact('rooms', 'dates', 'clients'));
     }
 }

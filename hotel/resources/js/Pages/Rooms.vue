@@ -16,11 +16,51 @@
             </template>
         </div>
 
+        <div :class="{hidden: !showModal}" class="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-75">
+            <div class="bg-white rounded-lg w-1/2">
+                <div class="flex flex-col items-start p-4">
+                <div class="flex items-center w-full">
+                    <div class="text-gray-900 font-medium text-lg">Pokój {{room.beds}} osobowy</div>
+                    <svg @click="showModal = !showModal" class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
+                    </svg>
+                </div>
+                <hr>
+                    <form method="post" class="w-full" :action="route('make.reservation')">
+                        <input type="hidden" name="_token" :value="csrf_token">
+                        <input type="hidden" name="check_in" :value="dates['check_in']">
+                        <input type="hidden" name="check_out" :value="dates['check_out']">
+                        <input type="hidden" name="id" :value="room.id">
+                        Wybierz klienta
+                        <select name="client_id">
+                            <option v-for="(client, index) in clients" :key="index" :value="client.id">{{client.name}}</option>
+                        </select>
+
+                        <hr>
+
+                        Dodaj klienta
+                        <div class="flex flex-col">
+                            Imię
+                            <input class="border" name="client.firstname">
+                            Nazwisko
+                            <input class="border" name="client.lastname">
+                            Telefon
+                            <input class="border" name="client.phone">
+                        </div>
+
+                        <div class="mt-4">
+                            <button class="bg-black p-3 ml-auto mr-0 block w-28 rounded text-white" type="submit">Zarezerwuj</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="py-12">
             <div class="max-w-5xl w-screen mx-auto sm:px-6 lg:px-8">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="mx-3 my-2 rounded">
-                        <div v-for="room in rooms" class="mb-1 w-full shadow border p-3">
+                        <div v-for="(room, index) in rooms" :key="index" class="mb-1 w-full shadow border p-3">
                             <p class="text-2xl">Pokój {{room.beds}} osobowy</p>
                             <p class="text-xl text-gray-700">Cena: {{room.price}} zł</p>
                             <p v-if="room.has_bathroom">
@@ -41,15 +81,7 @@
                                 </svg>
                                 Balkon
                             </p>
-                            <form method="post" :action="route('make.reservation')">
-                                <input type="hidden" name="_token" :value="csrf_token">
-                                <input type="hidden" name="check_in" :value="dates['check_in']">
-                                <input type="hidden" name="check_out" :value="dates['check_out']">
-                                <input type="hidden" name="id" :value="room.id">
-                                <div class="mt-4">
-                                    <button class="bg-black p-3 ml-auto mr-0 block w-28 rounded text-white" type="submit">Zarezerwuj</button>
-                                </div>
-                            </form>
+                            <button @click="makeReservation(room)" class="bg-black p-3 ml-auto mr-0 block w-28 rounded text-white">Zarezerwuj</button>
                         </div>
                     </div>
                 </div>
@@ -77,6 +109,17 @@ export default {
     data() {
         return {
             csrf_token: document.querySelector('meta[name="csrf-token"]').content,
+            room: {
+                beds: null,
+                id: null
+            },
+            showModal: false
+        }
+    },
+    methods: {
+        makeReservation(room) {
+            this.room = room;
+            this.showModal = true;
         }
     }
 }
