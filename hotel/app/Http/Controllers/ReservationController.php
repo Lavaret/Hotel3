@@ -11,9 +11,9 @@ class ReservationController extends Controller
         $validated = $request->validate([
             'check_in' => 'required|date',
             'check_out' => 'required|date',
-            'id' => 'integer|exists:rooms'
+            'room_id' => 'integer|exists:rooms'
         ]);
 
-        dd($validated, $request);
+        return 'works';
     }
 }

@@ -26,26 +26,29 @@
                     </svg>
                 </div>
                 <hr>
-                    <form method="post" class="w-full" :action="route('make.reservation')">
-                        <input type="hidden" name="_token" :value="csrf_token">
-                        <input type="hidden" name="check_in" :value="dates['check_in']">
-                        <input type="hidden" name="check_out" :value="dates['check_out']">
-                        <input type="hidden" name="id" :value="room.id">
-                        Wybierz klienta
-                        <select name="client_id">
-                            <option v-for="(client, index) in clients" :key="index" :value="client.id">{{client.name}}</option>
-                        </select>
+                    <form method="post" class="w-full" @submit.prevent="submit">
+                        <div class="flex">
+                            <a @click="form.client = 'choose'" class="bg-black p-3 m-1 block cursor-pointer w-28 rounded text-white">Wybierz</a>
+                            <a @click="form.client = 'new'" class="bg-black p-3 block m-1 cursor-pointer  w-28 rounded text-white">Nowy klient</a>
+                        </div>
 
-                        <hr>
+                        <div v-if="form.client === 'choose'">
+                            Wybierz klienta
+                            <select v-model="form.client_id">
+                                <option v-for="(client, index) in clients" :key="index" :value="client.id">{{client.name}}</option>
+                            </select>
+                        </div>
 
-                        Dodaj klienta
-                        <div class="flex flex-col">
-                            Imię
-                            <input class="border" name="client.firstname">
-                            Nazwisko
-                            <input class="border" name="client.lastname">
-                            Telefon
-                            <input class="border" name="client.phone">
+                        <div v-if="form.client === 'new'">
+                            Dodaj klienta
+                            <div class="flex flex-col">
+                                Imię
+                                <input class="border" v-model="form.clientData.firstname" required>
+                                Nazwisko
+                                <input class="border" v-model="form.clientData.lastname" required>
+                                Telefon
+                                <input class="border" v-model="form.clientData.phone" required>
+                            </div>
                         </div>
 
                         <div class="mt-4">
@@ -95,16 +98,19 @@
 
 <script>
 import Input from "@/Components/Input";
+import { Inertia } from '@inertiajs/inertia'
+
 export default {
-    components: {Input},
+    components: {Input, Inertia},
     props: {
         canLogin: Boolean,
         canRegister: Boolean,
         laravelVersion: String,
         phpVersion: String,
-        errors: Array,
+        errors: Object,
         rooms: Array,
-        dates: Array
+        dates: Object,
+        clients: Array
     },
     data() {
         return {
@@ -113,13 +119,31 @@ export default {
                 beds: null,
                 id: null
             },
+            form: {
+                check_in: this.dates['check_in'],
+                check_out: this.dates['check_out'],
+                _token: this.csrf_token,
+                room_id: null,
+                client: 'choose',
+                client_id: null,
+                clientData: {
+                    firstname: null,
+                    lastname: null,
+                    phone: null
+                }
+            },
             showModal: false
         }
     },
     methods: {
         makeReservation(room) {
             this.room = room;
+            this.form.room_id = room.id;
             this.showModal = true;
+        },
+        submit() {
+            let result = Inertia.post('/make/reservation', this.form);
+            console.log(result);
         }
     }
 }
