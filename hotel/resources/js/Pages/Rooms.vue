@@ -34,8 +34,8 @@
 
                         <div v-if="form.client === 'choose'">
                             Wybierz klienta
-                            <select v-model="form.client_id">
-                                <option v-for="(client, index) in clients" :key="index" :value="client.id">{{client.name}}</option>
+                            <select class="text-gray-900" v-model="form.client_id">
+                                <option v-for="(client, index) in clients" :key="index" :value="client.id">{{client.firstname}} {{client.lastname}}</option>
                             </select>
                         </div>
 
@@ -138,12 +138,13 @@ export default {
     methods: {
         makeReservation(room) {
             this.room = room;
-            this.form.room_id = room.id;
             this.showModal = true;
         },
         submit() {
-            let result = Inertia.post('/make/reservation', this.form);
-            console.log(result);
+            this.form.room_id = this.room.id;
+            Inertia.post('/make/reservation', this.form, {
+                onSuccess: () => location.reload(true),
+            });
         }
     }
 }

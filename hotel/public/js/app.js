@@ -19212,12 +19212,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     makeReservation: function makeReservation(room) {
       this.room = room;
-      this.form.room_id = room.id;
       this.showModal = true;
     },
     submit: function submit() {
-      var result = _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.post('/make/reservation', this.form);
-      console.log(result);
+      this.form.room_id = this.room.id;
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.post('/make/reservation', this.form, {
+        onSuccess: function onSuccess() {
+          return location.reload(true);
+        }
+      });
     }
   }
 });
@@ -20856,6 +20859,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     "class": "bg-black p-3 block m-1 cursor-pointer  w-28 rounded text-white"
   }, "Nowy klient")]), $data.form.client === 'choose' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
+    "class": "text-gray-900",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.form.client_id = $event;
     })
@@ -20863,7 +20867,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("option", {
       key: index,
       value: client.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.name), 9
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.firstname) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.lastname), 9
     /* TEXT, PROPS */
     , ["value"]);
   }), 128

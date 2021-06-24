@@ -24,7 +24,7 @@ class RoomController extends Controller
             'has_wifi' => 'nullable'
         ]);
 
-        $rooms = Room::leftJoin('reservations', 'room_id', '=', 'rooms.id')
+        $rooms = Room::select('rooms.*')->leftJoin('reservations', 'room_id', '=', 'rooms.id')
             ->where('rooms.beds', '<=', $validated['beds'])
             ->where(function ($query) use ($validated) {
                 $query->whereNotBetween('reservations.check_in', [$validated['check_in_date'], $validated['check_out_date']])
