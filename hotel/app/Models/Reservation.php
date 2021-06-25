@@ -20,4 +20,12 @@ class Reservation extends Model
         'room_id',
         'client_id'
     ];
+
+    public function room() {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function client() {
+        return $this->belongsTo(Client::class);
+    }
 }

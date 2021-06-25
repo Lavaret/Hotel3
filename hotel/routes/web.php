@@ -37,4 +37,8 @@ Route::get('/room/result', [RoomController::class, 'pokazRezultat'])->name('resu
 
 Route::post('/make/reservation', [ReservationController::class, 'zrobRezerwacje'])->name('make.reservation');
 
+Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
+
+Route::post('/delete/reservation/{reservation}', [ReservationController::class, 'delete'])->name('delete.reservation');
+
 require __DIR__.'/auth.php';

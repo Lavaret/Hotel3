@@ -12,9 +12,16 @@ class ReservationController extends Controller
 {
     public function index() {
         return Inertia::render('Reservations', [
-            'reservations' => Reservation::all()
+            'reservations' => Reservation::all()->load('room', 'client')
         ]);
     }
+
+    public function delete(Reservation $reservation)
+    {
+        $reservation->delete();
+    }
+
+
     public function zrobRezerwacje(Request $request) {
 
         $validated = $request->validate([
@@ -32,7 +39,7 @@ class ReservationController extends Controller
 
         $clientData = $request->get('clientData');
 
-        if(!$clientData->isEmpty()) {
+        if($clientData && !empty(array_filter($clientData))) {
             $client = Client::create($clientData);
             $reservation->client_id = $client->id;
         }

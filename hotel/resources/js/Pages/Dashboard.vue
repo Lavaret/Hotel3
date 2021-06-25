@@ -14,7 +14,7 @@
                             Znajdź pokój
                         </inertia-link>
 
-                        <inertia-link :href="''" class="ml-4 text-sm text-white bg-black p-3 rounded shadow">
+                        <inertia-link :href="route('reservations')" class="ml-4 text-sm text-white bg-black p-3 rounded shadow">
                             Zobacz rezerwacje
                         </inertia-link>
 
