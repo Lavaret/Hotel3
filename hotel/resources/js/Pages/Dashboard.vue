@@ -18,7 +18,7 @@
                             Zobacz rezerwacje
                         </inertia-link>
 
-                        <inertia-link :href="''" class="ml-4 text-sm text-white bg-black p-3 rounded shadow">
+                        <inertia-link :href="route('clients')" class="ml-4 text-sm text-white bg-black p-3 rounded shadow">
                             Zobacz klientów
                         </inertia-link>
                     </div>

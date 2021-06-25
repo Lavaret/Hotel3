@@ -42,3 +42,8 @@ Route::get('/reservations', [ReservationController::class, 'index'])->name('rese
 Route::post('/delete/reservation/{reservation}', [ReservationController::class, 'delete'])->name('delete.reservation');
 
 require __DIR__.'/auth.php';
+Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+
+Route::post('/edit/client/{client}', [ClientController::class, 'update'])->name('update.client');
+
+Route::get('/delete/client/{client}', [ClientController::class, 'delete'])->name('delete.client');
