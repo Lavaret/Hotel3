@@ -1,7 +1,7 @@
 <template>
     <breeze-authenticated-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">   
                 Rezerwacje
             </h2>
         </template>

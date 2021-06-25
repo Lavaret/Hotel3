@@ -32,7 +32,7 @@
     }
 
     .border-gray-200 {
-        border-color: #edf2f7;
+        border-color: #edf2f7;   
         border-color: rgba(237, 242, 247, var(--tw-border-opacity));
     }
 

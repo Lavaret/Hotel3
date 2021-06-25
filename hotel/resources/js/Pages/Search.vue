@@ -58,7 +58,7 @@
                             <div class="mt-4">
                                 <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Search</button>
                             </div>
-                        </form>
+                        </form>   
                     </div>
                 </div>
             </div>

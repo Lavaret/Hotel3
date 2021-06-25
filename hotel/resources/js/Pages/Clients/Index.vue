@@ -91,7 +91,9 @@ export default {
                 lastname: null,
                 phone: null
             }
+
         }
+
     },
     methods: {
         openModal(client) {

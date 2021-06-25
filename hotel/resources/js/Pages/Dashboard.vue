@@ -33,7 +33,7 @@
 
     export default {
         props: ['errors'],
-        components: {
+        components: {   
             BreezeAuthenticatedLayout,
         },
         data() {
